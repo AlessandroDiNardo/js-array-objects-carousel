@@ -7,7 +7,7 @@ const imgArr = [
         title: 'Marvel\'s Spiderman Miles Morale', 
         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.', 
     }, 
-    { 
+    {
         image: 'img/02.webp', 
         title: 'Ratchet & Clank: Rift Apart', 
         text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.', 
@@ -25,7 +25,7 @@ const imgArr = [
     { 
         image: 'img/05.webp', 
         title: "Marvel's Avengers", 
-        text : 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.', 
+        text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.', 
     } 
 ];
 
@@ -33,30 +33,41 @@ imgArr.forEach((element) => {
         // creazione elementi per dom
         let myCont = document.getElementById("container-item");
         let div = document.createElement("div");
+        let blockTxt = document.createElement("div")
         let img = document.createElement("img");
-        let title = document.createElement("h2");
-        let sub = document.createElement("sub");
+        let title = document.createElement("h1");
+        let sub = document.createElement("p");
 
         // aggiungo classe e inserisco nel DOM
         img.classList.add("img");
-        img.src = (element.image);
         title.classList.add("title");
-        title.innerHTML = (element.title);
         sub.classList.add("sub");
+        div.classList.add("item");
+
+        img.src = (element.image);
+        title.innerHTML = (element.title);
         sub.innerHTML = (element.text);
+
         div.append(img, title, sub);
         myCont.append(div);
     }
 );
 
-const divArray = document.getElementsByClassName("img");
+
+
+const divArray = document.getElementsByClassName("item");
 divArray[0].classList.add("active");
 
-// // variabile contatore
+// variabile contatore
 let activeItem = 0;
 
 // button prev
 let prev = document.getElementById("btnPrev");
+
+// aggiungo classe hidden button prev per rimuovere il button sulla prima img
+// prev.classList.add("hidden");
+
+// creazione funzione btn prev
 prev.addEventListener("click",
    function(){
         if(activeItem > 0) {
@@ -68,10 +79,6 @@ prev.addEventListener("click",
 
             // aggiungo active all'elemento
             divArray[activeItem].classList.add("active");
-        }
-
-        if(activeItem == 0) {
-            prev.classList.add("hidden");
         }
 
         if(activeItem < divArray.length-1){
@@ -109,11 +116,6 @@ next.addEventListener("click",
             // aggiungere active elemento successivo
             divArray[activeItem].classList.add("active");
         };
-
-        //  aggiungo classe hidden al button next arrivato all'ultimo elemento
-        if(activeItem === divArray.length - 1){
-            next.classList.add("hidden");
-        }
 
         // rimuovo il button prev con la classe hidden arrivato all'ultimo
         if(activeItem > 0){

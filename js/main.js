@@ -31,9 +31,8 @@ const imgArr = [
 
 imgArr.forEach((element) => {
         // creazione elementi per dom
-        let myCont = document.getElementById("container-item");
+        let leftSide = document.getElementById("left-side");
         let div = document.createElement("div");
-        let blockTxt = document.createElement("div")
         let img = document.createElement("img");
         let title = document.createElement("h1");
         let sub = document.createElement("p");
@@ -43,13 +42,14 @@ imgArr.forEach((element) => {
         title.classList.add("title");
         sub.classList.add("sub");
         div.classList.add("item");
+        leftSide.classList.add("left-side")
 
         img.src = (element.image);
         title.innerHTML = (element.title);
         sub.innerHTML = (element.text);
 
+        leftSide.append(div)
         div.append(img, title, sub);
-        myCont.append(div);
     }
 );
 
@@ -64,39 +64,28 @@ let activeItem = 0;
 // button prev
 let prev = document.getElementById("btnPrev");
 
-// aggiungo classe hidden button prev per rimuovere il button sulla prima img
-// prev.classList.add("hidden");
-
 // creazione funzione btn prev
 prev.addEventListener("click",
    function(){
-        if(activeItem > 0) {
+        if(activeItem === 0) {
             // rimuovo classe active
             divArray[activeItem].classList.remove("active");
 
             // decremento di uno per tornare all'indice precedente
-            activeItem --;
+            activeItem = divArray.length - 1;
 
             // aggiungo active all'elemento
             divArray[activeItem].classList.add("active");
-        }
 
-        if(activeItem < divArray.length-1){
-            next.classList.remove("hidden");
-        }
+        }else{
 
-        if(activeItem === 0) {
-            divArray[activeItem].classList.add("active");
-        }
+            divArray[activeItem].classList.remove("active");
 
-        if(activeItem === divArray - 1) {
-            divArray[activeItem].classList.add.remove("active");
-
-            activeItem = 0;
+            activeItem --;
 
             divArray[activeItem].classList.add("active");
         }
-   } 
+    } 
 );
 
 
@@ -106,20 +95,23 @@ let next = document.getElementById("btnNext");
 // creazione funzione btn next
 next.addEventListener("click",
     function() {
-        if(activeItem < divArray.length - 1) {            
+        if(activeItem === divArray.length - 1) {            
             // rimuovo classe active 
             divArray[activeItem].classList.remove("active");
 
             // incremento di uno l'indice dell'elemento da visualizzare
-            activeItem ++;
+            activeItem = 0;
 
             // aggiungere active elemento successivo
             divArray[activeItem].classList.add("active");
-        };
 
-        // rimuovo il button prev con la classe hidden arrivato all'ultimo
-        if(activeItem > 0){
-            prev.classList.remove("hidden");
+        }else{
+
+            divArray[activeItem].classList.remove("active");
+
+            activeItem ++;
+
+            divArray[activeItem].classList.add("active");
         }
     }
 );
